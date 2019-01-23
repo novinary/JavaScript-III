@@ -137,3 +137,34 @@ Humanoid.prototype.greet = function (){
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  //Villain
+  function Villain(vilAttributes){
+    GameObject.call(this, vilAttributes);
+    CharacterStats.call(this, vilAttributes);
+    Humanoid.call(this, vilAttributes);
+  };
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.serveDamage = function (enemy) {
+    console.log(`${this.name} hits ${enemy.name}`);
+    let newHealth = enemy.healthPoints = enemy.healthPoints - 3;
+    return (`${enemy.name}'s health is now ${newHealth}`)
+  };
+
+  const goblin = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 3,
+      height: 6,
+    },
+    healthPoints: 20,
+    name: 'Loghaat',
+    team: 'Rebellion',
+    weapons: [
+      'Mace',
+      'Shield',
+    ],
+    language: ' Ghukliak',
+  });
