@@ -20,7 +20,7 @@ function GameObject (attributes){
 }
 
 GameObject.prototype.destroy = function () {
-  return 'Object was removed from the game.';
+  return (`${this.name} was removed from the game.`);
 }
 
 
@@ -168,3 +168,43 @@ Humanoid.prototype.greet = function (){
     ],
     language: ' Ghukliak',
   });
+
+  //Hero
+  function Hero(vilAttributes){
+    GameObject.call(this, vilAttributes);
+    CharacterStats.call(this, vilAttributes);
+    Humanoid.call(this, vilAttributes);
+  };
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.giveDamage = function (enemy) {
+    console.log(`${this.name} hits ${enemy.name}`);
+    let newHealth = enemy.healthPoints = enemy.healthPoints - 3;
+    return (`${enemy.name}'s health is now ${newHealth}`)
+  };
+
+    const human = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 3,
+      height: 6,
+    },
+    healthPoints: 20,
+    name: 'Bob',
+    team: 'Lumbridge',
+    weapons: [
+      'Rock',
+      'Spoon',
+    ],
+    language: 'English',
+  });
+
+
+console.log(human.giveDamage(goblin)); 
+console.log(goblin.serveDamage(human));
+console.log(human.giveDamage(goblin)); 
+console.log(goblin.serveDamage(human));
+
+
+
